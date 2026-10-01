@@ -1,0 +1,91 @@
+<ion-content class="ion-padding ion-text-center">
+  
+  <!-- Encabezado de bienvenida -->
+  <div class="header-container ion-margin-top">
+    <ion-icon name="wallet-outline" color="primary" class="app-logo"></ion-icon>
+    <h1>Ahorro en Pareja</h1>
+    <p class="subtitle">Planifiquen sus metas de ahorro sin complicaciones</p>
+  </div>
+
+  <!-- VISTA 1: Menú de Selección Inicial -->
+  <div *ngIf="modoVista === 'seleccion'" class="options-container ion-margin-top">
+    <ion-card class="action-card" (click)="cambiarVista('crear')">
+      <ion-card-header>
+        <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+        <ion-card-title>Crear código de ahorro</ion-card-title>
+        <ion-card-subtitle>Inicia un pozo nuevo y comparte el código con tu pareja</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="action-card" (click)="cambiarVista('ingresar')">
+      <ion-card-header>
+        <ion-icon name="key-outline" color="secondary"></ion-icon>
+        <ion-card-title>Ingresar código de ahorro</ion-card-title>
+        <ion-card-subtitle>Únete al espacio de ahorro que creó tu pareja</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <!-- VISTA 2: Formulario para Crear Código -->
+  <div *ngIf="modoVista === 'crear'" class="form-container">
+    <ion-button fill="clear" size="small" (click)="cambiarVista('seleccion')">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon> Volver
+    </ion-button>
+
+    <h2>Nuevo Espacio de Ahorro</h2>
+
+    <ion-item class="ion-margin-bottom" lines="rounded">
+      <ion-label position="floating">Tu Nombre o Apodo</ion-label>
+      <ion-input [(ngModel)]="nombreUsuario" type="text" placeholder="Ej: Alex"></ion-input>
+    </ion-item>
+
+    <!-- Selección de Avatar simple -->
+    <div class="avatar-selection ion-margin-bottom">
+      <p>Elige tu avatar:</p>
+      <div class="avatars-grid">
+        <ion-avatar 
+          *ngFor="let av of avatares" 
+          [class.selected]="avatarSeleccionado === av"
+          (click)="avatarSeleccionado = av">
+          <img [src]="'assets/icon/' + av" alt="Avatar" />
+        </ion-avatar>
+      </div>
+    </div>
+
+    <ion-button expand="block" shape="round" color="primary" (click)="crearNuevoAhorro()">
+      <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+      Generar Código y Entrar
+    </ion-button>
+  </div>
+
+  <!-- VISTA 3: Formulario para Ingresar Código Existente -->
+  <div *ngIf="modoVista === 'ingresar'" class="form-container">
+    <ion-button fill="clear" size="small" (click)="cambiarVista('seleccion')">
+      <ion-icon name="arrow-back-outline" slot="start"></ion-icon> Volver
+    </ion-button>
+
+    <h2>Unirse a un Ahorro</h2>
+
+    <ion-item class="ion-margin-bottom" lines="rounded">
+      <ion-label position="floating">Tu Nombre o Apodo</ion-label>
+      <ion-input [(ngModel)]="nombreUsuario" type="text" placeholder="Ej: Sam"></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-margin-bottom" lines="rounded">
+      <ion-label position="floating">Código de 6 dígitos</ion-label>
+      <ion-input 
+        [(ngModel)]="codigoIngresado" 
+        type="text" 
+        maxlength="6" 
+        class="code-input"
+        placeholder="Ej: X7K9P2">
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" shape="round" color="secondary" (click)="unirseConCodigo()">
+      <ion-icon name="enter-outline" slot="start"></ion-icon>
+      Unirse al Ahorro
+    </ion-button>
+  </div>
+
+</ion-content>
