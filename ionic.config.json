@@ -1,0 +1,7 @@
+{
+  "name": "operacion-chanchito",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
